@@ -6,9 +6,10 @@ import os
 from pathlib import Path
 import streamlit as st
 
+
 class Config:
     """Configuration settings for ElderWise application"""
-    
+
     # Base paths
     BASE_DIR = Path(__file__).parent.parent
     DATA_DIR = BASE_DIR / "data"
@@ -17,84 +18,87 @@ class Config:
     TRANSCRIPTS_DIR = DATA_DIR / "transcripts"
     THUMBNAILS_DIR = DATA_DIR / "thumbnails"
     USER_DATA_DIR = DATA_DIR / "users"
-    
+
     # Application settings
     APP_NAME = "ElderWise"
     APP_VERSION = "1.0.0"
     APP_DESCRIPTION = "Connecting Generations Through Stories and Wisdom"
-    
+
     # File upload settings
-    MAX_UPLOAD_SIZE_MB = int(os.getenv('MAX_UPLOAD_SIZE_MB', '50'))
-    ALLOWED_AUDIO_FORMATS = ['.mp3', '.wav', '.m4a', '.ogg']
-    
+    MAX_UPLOAD_SIZE_MB = int(os.getenv("MAX_UPLOAD_SIZE_MB", "50"))
+    ALLOWED_AUDIO_FORMATS = [".mp3", ".wav", ".m4a", ".ogg"]
+
     # Database Configuration
     @staticmethod
     def get_database_url():
         """Get database URL from environment or default to SQLite"""
         # For production (Heroku, Railway, Render, etc.)
-        if os.getenv('DATABASE_URL'):
-            db_url = os.getenv('DATABASE_URL')
+        if os.getenv("DATABASE_URL"):
+            db_url = os.getenv("DATABASE_URL")
             # Fix for SQLAlchemy 1.4+ with PostgreSQL (Heroku compatibility)
-            if db_url.startswith('postgres://'):
-                db_url = db_url.replace('postgres://', 'postgresql://', 1)
+            if db_url.startswith("postgres://"):
+                db_url = db_url.replace("postgres://", "postgresql://", 1)
             return db_url
-        
+
         # For custom PostgreSQL setup
-        if os.getenv('POSTGRES_URL'):
-            return os.getenv('POSTGRES_URL')
-            
+        if os.getenv("POSTGRES_URL"):
+            return os.getenv("POSTGRES_URL")
+
         # For local PostgreSQL development
-        if os.getenv('USE_POSTGRESQL') == 'true':
-            user = os.getenv('DB_USER', 'postgres')
-            password = os.getenv('DB_PASSWORD', 'password')
-            host = os.getenv('DB_HOST', 'localhost')
-            port = os.getenv('DB_PORT', '5432')
-            db_name = os.getenv('DB_NAME', 'elderwise')
+        if os.getenv("USE_POSTGRESQL") == "true":
+            user = os.getenv("DB_USER", "postgres")
+            password = os.getenv("DB_PASSWORD", "password")
+            host = os.getenv("DB_HOST", "localhost")
+            port = os.getenv("DB_PORT", "5432")
+            db_name = os.getenv("DB_NAME", "elderwise")
             return f"postgresql://{user}:{password}@{host}:{port}/{db_name}"
-        
+
         # Default SQLite for development
         db_path = Config.DATA_DIR / "elderwise.db"
         Config.DATA_DIR.mkdir(parents=True, exist_ok=True)
         return f"sqlite:///{db_path}"
-    
+
     @staticmethod
     def is_production():
         """Check if running in production environment"""
-        return os.getenv('DATABASE_URL') is not None or os.getenv('POSTGRES_URL') is not None
-    
+        return (
+            os.getenv("DATABASE_URL") is not None
+            or os.getenv("POSTGRES_URL") is not None
+        )
+
     # AI Configuration
     GEMINI_MODEL = "gemini-pro"
-    
+
     @staticmethod
     def get_gemini_api_key():
         """Get Gemini API key from environment or session state"""
         # Try environment variable first
-        api_key = os.getenv('GEMINI_API_KEY')
+        api_key = os.getenv("GEMINI_API_KEY")
         if api_key:
             return api_key
-        
+
         # Try session state
-        if hasattr(st, 'session_state') and 'gemini_api_key' in st.session_state:
+        if hasattr(st, "session_state") and "gemini_api_key" in st.session_state:
             return st.session_state.gemini_api_key
-        
+
         return None
-    
+
     @staticmethod
     def set_gemini_api_key(api_key):
         """Set Gemini API key in session state"""
         st.session_state.gemini_api_key = api_key
-    
+
     # Navigation options
     MAIN_PAGES = {
         "🏠 Home": "home",
-        "📝 Share Your Story": "share_story", 
-        "🔍 Discover Stories": "discover_stories"
+        "📝 Share Your Story": "share_story",
+        "🔍 Discover Stories": "discover_stories",
     }
-    
+
     # Story categories
     STORY_CATEGORIES = {
         "life_skills": "Life Skills & Practical Wisdom",
-        "professional": "Professional & Career Advice", 
+        "professional": "Professional & Career Advice",
         "cultural": "Cultural Traditions & Heritage",
         "historical": "Historical Perspectives & Events",
         "relationships": "Relationships & Family",
@@ -104,9 +108,9 @@ class Config:
         "travel": "Travel & Adventure",
         "health": "Health & Wellness",
         "technology": "Technology & Digital Life",
-        "finance": "Finance & Money Management"
+        "finance": "Finance & Money Management",
     }
-    
+
     # Story prompts for each category
     STORY_PROMPTS = {
         "life_skills": [
@@ -168,9 +172,9 @@ class Config:
             "What financial lessons did you learn from your parents?",
             "How did you handle money differently in your younger years?",
             "What's the best financial advice you can give?",
-        ]
+        ],
     }
-    
+
     # UI Styling
     CUSTOM_CSS = """
     <style>

@@ -4,13 +4,15 @@ from src.utils import setup_page_config, setup_directories
 from pages.share_story import share_story_page
 from pages.read_stories import read_stories_page
 
+
 def main():
     """Main application entry point"""
     setup_page_config()
     setup_directories()
 
     # Custom CSS for modern styling
-    st.markdown("""
+    st.markdown(
+        """
     <style>
     .main-header {
         text-align: center;
@@ -66,15 +68,20 @@ def main():
         margin: 1rem 0;
     }
     </style>
-    """, unsafe_allow_html=True)
+    """,
+        unsafe_allow_html=True,
+    )
 
     # Main header with gradient background
-    st.markdown("""
+    st.markdown(
+        """
     <div class="main-header">
         <h1>📚 StoryShare</h1>
         <p>Share your stories, discover amazing tales from our community</p>
     </div>
-    """, unsafe_allow_html=True)
+    """,
+        unsafe_allow_html=True,
+    )
 
     # Initialize database
     init_database()
@@ -87,6 +94,7 @@ def main():
 
     with tab2:
         read_stories_page()
+
 
 if __name__ == "__main__":
     main()
