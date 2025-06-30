@@ -3,13 +3,13 @@
 Test script to verify database setup
 """
 
-import sys
 import os
+import sys
 
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
 try:
-    from src.database import init_database, get_db_session, User, Story
+    from src.database import Story, User, get_db_session, init_database
 
     print("✅ Imports successful")
 

@@ -1,8 +1,9 @@
 import streamlit as st
-from src.database import init_database
-from src.utils import setup_page_config, setup_directories
-from pages.share_story import share_story_page
+
 from pages.read_stories import read_stories_page
+from pages.share_story import share_story_page
+from src.database import init_database
+from src.utils import setup_directories, setup_page_config
 
 
 def main():

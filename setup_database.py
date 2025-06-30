@@ -3,8 +3,8 @@
 Database setup and migration script for ElderWise
 """
 
-import sys
 import os
+import sys
 from pathlib import Path
 
 # Add project root to path
@@ -15,7 +15,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-from src.database import init_database, get_db_session, User, Story, db_manager
+from src.database import Story, User, db_manager, get_db_session, init_database
 
 
 def setup_database():

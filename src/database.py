@@ -2,25 +2,17 @@
 Database models and operations for ElderWise application
 """
 
-from sqlalchemy import (
-    create_engine,
-    Column,
-    Integer,
-    String,
-    Text,
-    DateTime,
-    Boolean,
-    ForeignKey,
-    JSON,
-)
-
-# from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import declarative_base
-from sqlalchemy.orm import sessionmaker, relationship, Session
+import os
 from contextlib import contextmanager
 from datetime import datetime
-import os
 from pathlib import Path
+
+from sqlalchemy import (JSON, Boolean, Column, DateTime, ForeignKey, Integer,
+                        String, Text, create_engine)
+# from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import (Session, declarative_base, relationship,
+                            sessionmaker)
+
 from src.config import Config
 
 # Load environment variables

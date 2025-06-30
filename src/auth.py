@@ -2,8 +2,9 @@
 Simple session management for ElderWise (without authentication)
 """
 
+from typing import Any, Dict
+
 import streamlit as st
-from typing import Dict, Any
 
 
 def init_session_state():
